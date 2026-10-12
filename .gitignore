@@ -42,7 +42,9 @@ Thumbs.db
 .kiro/
 .agent/
 .shared/
-.github/
+# 注意：这里原本有一行 `.github/`，会把 .github/workflows/ 下的 CI 配置一起忽略掉
+# （新加的工作流会被 git 静默跳过，非常难查）。本仓库已删除该行。
+# .github/
 
 # External projects
 Open-AutoGLM/
