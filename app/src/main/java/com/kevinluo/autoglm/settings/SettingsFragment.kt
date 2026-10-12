@@ -11,6 +11,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -571,13 +572,24 @@ class SettingsFragment : Fragment() {
         false
     }
 
-    private fun isKeyboardEnabled(): Boolean {
-        val enabledInputMethods =
-            Settings.Secure.getString(
-                requireContext().contentResolver,
-                Settings.Secure.ENABLED_INPUT_METHODS,
-            ) ?: ""
-        return enabledInputMethods.contains(requireContext().packageName)
+    /**
+     * 判断 AutoGLM 输入法是否已被用户启用。
+     *
+     * ⚠️ 不要用 `Settings.Secure.getString(ENABLED_INPUT_METHODS)`：
+     * Android 14 (API 34) 起，该安全设置项对 targetSdk > 33 的应用**禁止读取**，
+     * 会直接抛 `java.lang.SecurityException: Settings key: <enabled_input_methods>
+     * is only readable to apps with targetSdkVersion lower than or equal to: 33`，
+     * 而本方法是在 `onResume()` 里被调用的 —— 结果是「一打开设置页就崩溃」。
+     *
+     * 改用公开 API `InputMethodManager.getEnabledInputMethodList()`：
+     * 无需任何权限，也不在受限名单里，所有 Android 版本行为一致。
+     */
+    private fun isKeyboardEnabled(): Boolean = try {
+        val imm = requireContext().getSystemService(InputMethodManager::class.java)
+        imm?.enabledInputMethodList?.any { it.packageName == requireContext().packageName } == true
+    } catch (e: Exception) {
+        Logger.w(TAG, "isKeyboardEnabled() failed", e)
+        false
     }
 
     private fun isBatteryOptimizationIgnored(): Boolean {

@@ -1,70 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ============================================================================
+    values/themes.xml —— 【浅色主题（默认）】样式定义
+    ============================================================================
+    零基础说明：
+      · “主题（Theme）”决定了整个 App 的配色基调、状态栏样式、控件默认外观。
+      · 本文件是【浅色】版本；res/values-night/themes.xml 是【深色】版本。
+      · 手机系统处于深色模式时，系统自动用 values-night 里的同名主题，
+        所以我们只要保证两个文件里的 <style name> 一样，就能实现“一键切换”。
+    本次改动：
+      1) Base.Theme.AutoGLM 的父主题由 Theme.Material3.Dark.NoActionBar
+         改为 Theme.Material3.Light.NoActionBar（浅色基调）；
+      2) 状态栏图标改为深色（windowLightStatusBar=true），否则浅色背景上看不见时间/电量；
+      3) 新增对话界面专用样式（ChatBody / ChatLabel / AgentLog / ChatInput ...）。
+    ============================================================================
+-->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme - Dark with Blue Accent -->
-    <style name="Base.Theme.AutoGLM" parent="Theme.Material3.Dark.NoActionBar">
-        <!-- Primary brand color -->
+    <!-- ======================= 基础主题（浅色） ======================= -->
+    <style name="Base.Theme.AutoGLM" parent="Theme.Material3.Light.NoActionBar">
+        <!-- 主品牌色 -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_variant</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorPrimaryContainer">@color/surface_variant</item>
         <item name="colorOnPrimaryContainer">@color/primary</item>
-        
-        <!-- Secondary brand color -->
+
+        <!-- 次级品牌色 -->
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/secondary_variant</item>
         <item name="colorOnSecondary">@color/on_secondary</item>
         <item name="colorSecondaryContainer">@color/surface_variant</item>
         <item name="colorOnSecondaryContainer">@color/secondary</item>
 
-        <!-- Tertiary brand color (avoid default purple/pink) -->
+        <!-- 第三色（避免出现默认紫粉色） -->
         <item name="colorTertiary">@color/primary</item>
         <item name="colorOnTertiary">@color/on_primary</item>
         <item name="colorTertiaryContainer">@color/surface_variant</item>
         <item name="colorOnTertiaryContainer">@color/primary</item>
 
-        <!-- Unified control colors (radio/checkbox/slider/etc.) -->
+        <!-- 统一控件颜色（单选/复选/滑块等） -->
         <item name="colorControlActivated">@color/primary</item>
         <item name="colorControlNormal">@color/icon_secondary</item>
         <item name="android:colorControlActivated">@color/primary</item>
         <item name="android:colorControlNormal">@color/icon_secondary</item>
-        <!-- AppCompat legacy widgets (AlertDialog/ProgressBar/etc.) -->
+        <!-- AppCompat 旧版控件（AlertDialog / ProgressBar 等） -->
         <item name="colorAccent">@color/primary</item>
         <item name="android:colorAccent">@color/primary</item>
         <item name="android:radioButtonStyle">@style/Widget.App.RadioButton</item>
         <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
-        
-        <!-- Surface colors -->
+
+        <!-- 表面颜色 -->
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/on_surface</item>
         <item name="colorSurfaceVariant">@color/surface_variant</item>
         <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
-        
-        <!-- Background -->
+
+        <!-- 背景色 -->
         <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
         <item name="colorOnBackground">@color/on_background</item>
-        
-        <!-- Immersive status bar and navigation bar -->
+
+        <!-- 沉浸式状态栏 / 导航栏 -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <!-- 浅色主题：状态栏图标用深色，否则看不见 -->
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
-        
-        <!-- Outline and divider -->
+
+        <!-- 描边与分割线 -->
         <item name="colorOutline">@color/card_stroke</item>
         <item name="colorOutlineVariant">@color/divider</item>
-        
-        <!-- Text appearance -->
+
+        <!-- 文字外观 -->
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_hint</item>
+
+        <!-- 工具栏（MaterialToolbar）默认配色 -->
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
     </style>
 
     <style name="Theme.AutoGLM" parent="Base.Theme.AutoGLM" />
 
+    <!-- ======================= 顶部工具栏：简约、无阴影、白底 ======================= -->
+    <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/chat_toolbar_background</item>
+        <item name="titleTextColor">@color/chat_toolbar_title</item>
+        <item name="subtitleTextColor">@color/text_secondary</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.ToolbarTitle</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="TextAppearance.App.ToolbarTitle" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/chat_toolbar_title</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- ======================= 对话界面专用样式 ======================= -->
+    <!-- AI 消息正文（15sp，行距略大，长时间阅读更舒服） -->
+    <style name="TextAppearance.App.ChatBody" parent="TextAppearance.App">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/chat_ai_text</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textColorLink">@color/chat_link</item>
+    </style>
+
+    <!-- 用户消息正文（白字） -->
+    <style name="TextAppearance.App.ChatUserBody" parent="TextAppearance.App.ChatBody">
+        <item name="android:textColor">@color/chat_user_text</item>
+        <item name="android:textColorLink">@color/chat_user_text</item>
+    </style>
+
+    <!-- 消息下方的小标签（时间 / “AI 正在思考”等） -->
+    <style name="TextAppearance.App.ChatLabel" parent="TextAppearance.App">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/chat_system_text</item>
+    </style>
+
+    <!-- 侧边 Agent 面板的区块标题 -->
+    <style name="TextAppearance.App.PanelLabel" parent="TextAppearance.App">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/chat_panel_label</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- 等宽字体：用于显示 Agent 执行日志 / 屏幕识别原始输出 -->
+    <style name="TextAppearance.App.AgentLog" parent="TextAppearance.App">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/chat_panel_log_text</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+    </style>
+
+    <!-- 底部输入框：去掉系统默认下划线，交给圆角背景 drawable -->
+    <style name="Widget.App.ChatInput" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:inputType">textMultiLine|textCapSentences</item>
+        <item name="android:maxLines">6</item>
+        <item name="android:minLines">1</item>
+        <item name="android:scrollHorizontally">false</item>
+    </style>
+
+    <!-- 状态胶囊（工具栏右侧“已连接/未连接”小标签） -->
+    <style name="Widget.App.StatusChip" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/chat_status_chip_background</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- ======================= 以下是原工程已有样式（保持不变） ======================= -->
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <!-- Override all color slots to use our blue primary -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorSecondary">@color/primary</item>
         <item name="colorTertiary">@color/primary</item>
@@ -76,38 +175,31 @@
         <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
         <item name="colorSurface">@color/dialog_background</item>
         <item name="colorSurfaceVariant">@color/surface_variant</item>
-        <!-- Button styles - use TextButton style that inherits colorPrimary -->
         <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.TextButton.Dialog</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button.TextButton.Dialog</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button.TextButton.Dialog</item>
-        <!-- RadioButton in dialog -->
         <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
         <item name="android:radioButtonStyle">@style/Widget.App.RadioButton</item>
     </style>
 
-    <!-- Custom Dialog Button Style with primary color -->
     <style name="Widget.App.Button.TextButton.Dialog" parent="Widget.Material3.Button.TextButton.Dialog">
         <item name="android:textColor">@color/primary</item>
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="rippleColor">@color/ripple_color</item>
         <item name="iconTint">@color/primary</item>
-        <!-- Force Material3 to use our color -->
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.DialogButton</item>
     </style>
 
-    <!-- Theme overlay for dialog buttons to force primary color -->
     <style name="ThemeOverlay.App.DialogButton" parent="">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnSurface">@color/primary</item>
     </style>
-    
-    <!-- Voice Recording Dialog Theme -->
-    <style name="VoiceRecordingDialogTheme" parent="Theme.Material3.Dark.Dialog">
+
+    <style name="VoiceRecordingDialogTheme" parent="Theme.Material3.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/VoiceDialogAnimation</item>
-        <!-- Override colors to use our blue primary -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorSecondary">@color/primary</item>
         <item name="colorTertiary">@color/primary</item>
@@ -119,13 +211,12 @@
         <item name="colorSurface">@color/dialog_background</item>
         <item name="colorOnSurface">@color/on_surface</item>
     </style>
-    
+
     <style name="VoiceDialogAnimation">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
-    
-    <!-- Transparent theme for utility activities -->
+
     <style name="Theme.Transparent" parent="Theme.AutoGLM">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -133,16 +224,14 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-    
-    <!-- Card Style -->
+
     <style name="Widget.App.CardView" parent="Widget.Material3.CardView.Filled">
         <item name="cardBackgroundColor">@color/card_background</item>
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">0dp</item>
         <item name="strokeWidth">0dp</item>
     </style>
-    
-    <!-- Primary Button Style - Filled with blue -->
+
     <style name="Widget.App.Button.Primary" parent="Widget.Material3.Button">
         <item name="backgroundTint">@color/button_primary</item>
         <item name="android:textColor">@color/button_primary_text</item>
@@ -151,8 +240,7 @@
         <item name="android:paddingBottom">12dp</item>
         <item name="iconTint">@color/button_primary_text</item>
     </style>
-    
-    <!-- Secondary Button Style - Outlined -->
+
     <style name="Widget.App.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
         <item name="strokeColor">@color/button_outlined_stroke</item>
         <item name="android:textColor">@color/button_secondary_text</item>
@@ -161,8 +249,7 @@
         <item name="android:paddingBottom">12dp</item>
         <item name="iconTint">@color/button_secondary_text</item>
     </style>
-    
-    <!-- Text Button Style -->
+
     <style name="Widget.App.Button.Text" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/primary</item>
         <item name="cornerRadius">24dp</item>
@@ -173,22 +260,19 @@
         <item name="android:textColor">@color/text_secondary</item>
         <item name="iconTint">@color/text_secondary</item>
     </style>
-    
-    <!-- Tonal Button Style -->
+
     <style name="Widget.App.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
         <item name="backgroundTint">@color/surface_variant</item>
         <item name="android:textColor">@color/primary</item>
         <item name="cornerRadius">24dp</item>
         <item name="iconTint">@color/primary</item>
     </style>
-    
-    <!-- Tonal Button Style - Large (for card buttons) -->
+
     <style name="Widget.App.Button.Tonal.Large" parent="Widget.App.Button.Tonal">
         <item name="android:textSize">16sp</item>
         <item name="iconSize">24dp</item>
     </style>
-    
-    <!-- Input Field Style -->
+
     <style name="Widget.App.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/input_stroke_focused</item>
         <item name="boxCornerRadiusTopStart">12dp</item>
@@ -198,39 +282,33 @@
         <item name="hintTextColor">@color/primary</item>
         <item name="boxBackgroundColor">@color/input_background</item>
     </style>
-    
-    <!-- Base Text Appearance -->
+
     <style name="TextAppearance.App" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textColor">@color/text_primary</item>
     </style>
-    
-    <!-- Section Title Style -->
+
     <style name="TextAppearance.App.SectionTitle" parent="TextAppearance.App">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
-    
-    <!-- Card Title Style -->
+
     <style name="TextAppearance.App.CardTitle" parent="TextAppearance.App">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
-    
-    <!-- List Item Title -->
+
     <style name="TextAppearance.App.ListTitle" parent="TextAppearance.App">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/text_primary</item>
     </style>
-    
-    <!-- List Item Subtitle -->
+
     <style name="TextAppearance.App.ListSubtitle" parent="TextAppearance.App">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/text_secondary</item>
     </style>
-    
-    <!-- MaterialSwitch Style - Better visibility for unchecked state -->
+
     <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
         <item name="trackTint">@color/switch_track_color</item>
         <item name="thumbTint">@color/switch_thumb_color</item>

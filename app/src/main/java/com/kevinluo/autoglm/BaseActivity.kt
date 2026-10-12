@@ -12,6 +12,10 @@ import androidx.core.view.updatePadding
  * across all activities in the app.
  *
  * All activities should extend this class to get unified immersive UI behavior.
+ *
+ * 说明：深浅色偏好的应用**不在这里**做，而是在 AutoGLMApplication.onCreate() 里做。
+ * 原因：Activity 的主题在 attachBaseContext() 阶段就已确定，那早于 onCreate()，
+ * 在这里调用 AppCompatDelegate.setDefaultNightMode() 会多触发一次 Activity 重建（闪屏）。
  */
 abstract class BaseActivity : AppCompatActivity() {
 

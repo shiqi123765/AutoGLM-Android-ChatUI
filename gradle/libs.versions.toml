@@ -25,6 +25,10 @@ navigation = "2.8.5"
 fragment = "1.8.5"
 # SwipeRefreshLayout
 swiperefreshlayout = "1.1.0"
+# 本次 UI 改版新增：对话列表 + 侧边抽屉 + Markdown 渲染
+recyclerview = "1.3.2"
+drawerlayout = "1.2.0"
+markwon = "4.6.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -67,6 +71,15 @@ androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-
 androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
 # SwipeRefreshLayout
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+# RecyclerView：对话消息列表（material 也会间接引入，这里显式声明，避免以后升级被移除）
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+# DrawerLayout：侧边可折叠 Agent 面板
+androidx-drawerlayout = { group = "androidx.drawerlayout", name = "drawerlayout", version.ref = "drawerlayout" }
+# Markwon：Android 上最常用的 Markdown 渲染库（AI 气泡支持 代码块 / 列表 / 加粗 / 链接 / 表格）
+markwon-core = { group = "io.noties.markwon", name = "core", version.ref = "markwon" }
+markwon-linkify = { group = "io.noties.markwon", name = "linkify", version.ref = "markwon" }
+markwon-ext-tables = { group = "io.noties.markwon", name = "ext-tables", version.ref = "markwon" }
+markwon-ext-strikethrough = { group = "io.noties.markwon", name = "ext-strikethrough", version.ref = "markwon" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

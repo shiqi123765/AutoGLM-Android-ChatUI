@@ -135,6 +135,22 @@ dependencies {
     // SwipeRefreshLayout
     implementation(libs.androidx.swiperefreshlayout)
 
+    // ==========================================================================
+    // 【本次 UI 改版新增的依赖】
+    // ==========================================================================
+    // RecyclerView：对话消息列表（左侧 AI 气泡 / 右侧用户气泡）
+    implementation(libs.androidx.recyclerview)
+
+    // DrawerLayout：侧边可折叠的 Agent 执行日志面板
+    implementation(libs.androidx.drawerlayout)
+
+    // Markwon：Markdown 渲染库
+    // 让 AI 消息气泡支持：代码块、有序/无序列表、加粗、斜体、链接、表格、删除线
+    implementation(libs.markwon.core)
+    implementation(libs.markwon.linkify)
+    implementation(libs.markwon.ext.tables)
+    implementation(libs.markwon.ext.strikethrough)
+
     // OkHttp for API communication
     implementation(libs.okhttp)
     implementation(libs.okhttp.sse)

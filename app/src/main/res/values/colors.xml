@@ -1,99 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    ============================================================================
+    colors.xml —— 【浅色主题（默认）】颜色资源
+    ============================================================================
+    说明（零基础也能看懂）：
+    1. Android 的颜色资源是“按名字引用”的，布局里写 @color/xxx，
+       系统会根据当前是浅色还是深色模式，自动去下面两个文件里取值：
+         · res/values/colors.xml        → 浅色模式（本文件）
+         · res/values-night/colors.xml  → 深色模式
+       所以“一键切换深浅色”不需要改任何布局代码，系统自动换色。
+    2. 本文件保留了原工程全部颜色名字（background / primary / text_primary ...），
+       只是把取值从“深色”改成了“浅灰白”，因此设置页、历史页、悬浮窗
+       都会一起变成浅色，不会出现编译错误（原工程布局里没有任何硬编码色值）。
+    3. 文件末尾 chat_* 开头的是本次新增的“对话界面”专用颜色。
+    ============================================================================
+-->
 <resources>
+    <!-- ======================= 基础颜色 ======================= -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    
-    <!-- Primary Colors - Soft Blue -->
-    <color name="primary">#FF7BA4DB</color>
-    <color name="primary_dark">#FF5A8ACF</color>
-    <color name="primary_light">#FF9DBDE8</color>
-    <color name="primary_variant">#FF4A7BC8</color>
-    <color name="on_primary">#FF1A1A1A</color>
-    
-    <!-- Secondary Colors -->
+
+    <!-- ======================= 品牌主色（冷静的科技蓝） ======================= -->
+    <color name="primary">#FF3B6EF6</color>
+    <color name="primary_dark">#FF2A55C8</color>
+    <color name="primary_light">#FF7C9DFA</color>
+    <color name="primary_variant">#FF2A55C8</color>
+    <!-- on_primary = “画在主色背景上的文字颜色”。浅色模式下主色是饱和蓝，所以用白色 -->
+    <color name="on_primary">#FFFFFFFF</color>
+
+    <!-- ======================= 次级色（跟随主色） ======================= -->
     <color name="secondary">@color/primary</color>
     <color name="secondary_variant">@color/primary_dark</color>
     <color name="on_secondary">@color/on_primary</color>
-    
-    <!-- Dark Surface Colors -->
-    <color name="background">#FF121212</color>
-    <color name="surface">#FF1E1E1E</color>
-    <color name="surface_variant">#FF2A2A2A</color>
-    <color name="surface_elevated">#FF252525</color>
-    <color name="on_background">#FFFFFFFF</color>
-    <color name="on_surface">#FFFFFFFF</color>
-    <color name="on_surface_variant">#FFB0B0B0</color>
-    
-    <!-- Card and Container Colors -->
-    <color name="card_background">#FF1E1E1E</color>
-    <color name="card_stroke">#FF333333</color>
-    <color name="divider">#FF2A2A2A</color>
-    
-    <!-- Floating Window Colors -->
-    <color name="floating_window_background">#F51E1E1E</color>
-    <color name="floating_window_border">#FF333333</color>
-    <color name="floating_window_header">#FF252525</color>
-    <color name="floating_window_text_primary">#FFFFFFFF</color>
-    <color name="floating_window_text_secondary">#FFB0B0B0</color>
-    
-    <!-- Status Colors -->
-    <color name="status_idle">#FF666666</color>
+
+    <!-- ======================= 页面 / 卡片 / 分割线 ======================= -->
+    <!-- background：整个 App 的页面底色。豆包/Codex 风格用“近白浅灰” -->
+    <color name="background">#FFFBFBFC</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="surface_variant">#FFF1F2F5</color>
+    <color name="surface_elevated">#FFFFFFFF</color>
+    <color name="on_background">#FF1A1B1E</color>
+    <color name="on_surface">#FF1A1B1E</color>
+    <color name="on_surface_variant">#FF6B6D74</color>
+
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="card_stroke">#FFE6E7EB</color>
+    <color name="divider">#FFEDEEF1</color>
+
+    <!-- ======================= 悬浮窗（Agent 执行时的小窗） ======================= -->
+    <color name="floating_window_background">#F5FFFFFF</color>
+    <color name="floating_window_border">#FFE2E3E8</color>
+    <color name="floating_window_header">#FFF6F7F9</color>
+    <color name="floating_window_text_primary">#FF1A1B1E</color>
+    <color name="floating_window_text_secondary">#FF6B6D74</color>
+
+    <!-- ======================= 任务状态色 ======================= -->
+    <color name="status_idle">#FF9A9CA3</color>
     <color name="status_running">@color/primary</color>
-    <color name="status_paused">#FFFFB74D</color>
-    <color name="status_completed">#FF81C784</color>
-    <color name="status_failed">#FFEF5350</color>
-    <color name="status_waiting">#FFFFB74D</color>
-    <color name="status_success">#FF81C784</color>
-    <color name="status_error">#FFEF5350</color>
-    
-    <!-- Dialog Colors -->
-    <color name="dialog_background">#FF1E1E1E</color>
-    <color name="dialog_surface">#FF252525</color>
+    <color name="status_paused">#FFE8A33D</color>
+    <color name="status_completed">#FF2E9E5B</color>
+    <color name="status_failed">#FFE5484D</color>
+    <color name="status_waiting">#FFE8A33D</color>
+    <color name="status_success">#FF2E9E5B</color>
+    <color name="status_error">#FFE5484D</color>
+
+    <!-- ======================= 弹窗 ======================= -->
+    <color name="dialog_background">#FFFFFFFF</color>
+    <color name="dialog_surface">#FFF6F7F9</color>
     <color name="dialog_button_confirm">@color/primary</color>
-    <color name="dialog_button_cancel">#FF888888</color>
-    
-    <!-- Log Background -->
-    <color name="log_background">#FF151515</color>
-    <color name="log_background_dark">#FF0A0A0A</color>
-    
-    <!-- Input Field Colors -->
-    <color name="input_background">#FF252525</color>
-    <color name="input_stroke">#FF404040</color>
-    <color name="input_stroke_focused">#FF7BA4DB</color>
-    
-    <!-- Button Colors -->
+    <color name="dialog_button_cancel">#FF8A8C93</color>
+
+    <!-- ======================= 日志区域（侧边面板 / 悬浮窗日志） ======================= -->
+    <color name="log_background">#FFF4F5F7</color>
+    <color name="log_background_dark">#FFEDEEF1</color>
+
+    <!-- ======================= 输入框 ======================= -->
+    <color name="input_background">#FFFFFFFF</color>
+    <color name="input_stroke">#FFE2E3E8</color>
+    <color name="input_stroke_focused">#FF3B6EF6</color>
+
+    <!-- ======================= 按钮 ======================= -->
     <color name="button_primary">@color/primary</color>
     <color name="button_primary_text">@color/on_primary</color>
-    <color name="button_secondary">#FF2A2A2A</color>
+    <color name="button_secondary">#FFF1F2F5</color>
     <color name="button_secondary_text">@color/primary</color>
-    <color name="button_outlined_stroke">@color/primary</color>
-    
-    <!-- Text Colors -->
-    <color name="text_primary">#FFFFFFFF</color>
-    <color name="text_secondary">#FFB0B0B0</color>
-    <color name="text_hint">#FF707070</color>
-    
-    <!-- Icon Colors -->
+    <color name="button_outlined_stroke">#FFD9DBE1</color>
+
+    <!-- ======================= 文字 ======================= -->
+    <color name="text_primary">#FF1A1B1E</color>
+    <color name="text_secondary">#FF6B6D74</color>
+    <color name="text_hint">#FF9A9CA3</color>
+
+    <!-- ======================= 图标 ======================= -->
     <color name="icon_primary">@color/primary</color>
-    <color name="icon_secondary">#FF888888</color>
-    <color name="icon_tertiary">#FFAAAAAA</color>
-    
-    <!-- Error Color -->
-    <color name="error">#FFEF5350</color>
-    
-    <!-- Ripple and Overlay -->
-    <color name="ripple_color">#1A7BA4DB</color>
-    <color name="overlay_light">#0A7BA4DB</color>
-    
-    <!-- Keyboard Colors -->
-    <color name="keyboard_background">#FF1A1A1A</color>
-    <color name="keyboard_text">#FFFFFFFF</color>
-    <color name="keyboard_status_text">#FF81C784</color>
-    <color name="keyboard_hint_text">#FF888888</color>
-    
-    <!-- Switch Colors -->
-    <color name="switch_track_unchecked">#FF505050</color>
+    <color name="icon_secondary">#FF8A8C93</color>
+    <color name="icon_tertiary">#FFB0B2B8</color>
+
+    <!-- ======================= 错误 ======================= -->
+    <color name="error">#FFE5484D</color>
+
+    <!-- ======================= 点击水波纹 / 浅色遮罩 ======================= -->
+    <color name="ripple_color">#143B6EF6</color>
+    <color name="overlay_light">#0A3B6EF6</color>
+
+    <!-- ======================= 输入法键盘（AutoGLM Keyboard） ======================= -->
+    <color name="keyboard_background">#FFFBFBFC</color>
+    <color name="keyboard_text">#FF1A1B1E</color>
+    <color name="keyboard_status_text">#FF2E9E5B</color>
+    <color name="keyboard_hint_text">#FF8A8C93</color>
+
+    <!-- ======================= 开关 ======================= -->
+    <color name="switch_track_unchecked">#FFD6D8DE</color>
     <color name="switch_track_checked">@color/primary</color>
-    <color name="switch_thumb_unchecked">#FFB0B0B0</color>
-    <color name="switch_thumb_checked">@color/white</color>
+    <color name="switch_thumb_unchecked">#FFFFFFFF</color>
+    <color name="switch_thumb_checked">#FFFFFFFF</color>
+
+    <!-- ============================================================================
+         以下为【对话界面】新增颜色（本次 UI 改版核心）
+         ============================================================================ -->
+
+    <!-- 用户消息气泡：靠右、深色背景 + 白色文字（豆包/微信同款） -->
+    <color name="chat_user_bubble">#FF1F2126</color>
+    <color name="chat_user_text">#FFFFFFFF</color>
+
+    <!-- AI 消息气泡：靠左、浅灰背景 + 深色文字 + 极细描边 -->
+    <color name="chat_ai_bubble">#FFF1F2F5</color>
+    <color name="chat_ai_bubble_stroke">#FFE6E7EB</color>
+    <color name="chat_ai_text">#FF1A1B1E</color>
+
+    <!-- Markdown 代码块 / 行内代码配色 -->
+    <color name="chat_code_background">#FFE7E9EE</color>
+    <color name="chat_code_text">#FF1F2126</color>
+    <color name="chat_link">#FF2A55C8</color>
+
+    <!-- 头像圆点 -->
+    <color name="chat_avatar_ai_bg">#FFE7ECFE</color>
+    <color name="chat_avatar_ai_text">#FF2A55C8</color>
+    <color name="chat_avatar_user_bg">#FF1F2126</color>
+    <color name="chat_avatar_user_text">#FFFFFFFF</color>
+
+    <!-- 底部输入栏 -->
+    <color name="chat_input_background">#FFFFFFFF</color>
+    <color name="chat_input_stroke">#FFE2E3E8</color>
+    <color name="chat_send_button">#FF3B6EF6</color>
+    <color name="chat_send_button_disabled">#FFD3D5DB</color>
+    <color name="chat_send_icon">#FFFFFFFF</color>
+    <color name="chat_input_bar_background">#FFF7F8FA</color>
+
+    <!-- 侧边 Agent 面板 -->
+    <color name="chat_panel_background">#FFFFFFFF</color>
+    <color name="chat_panel_header">#FFF7F8FA</color>
+    <color name="chat_panel_card">#FFF4F5F7</color>
+    <color name="chat_panel_label">#FF8A8C93</color>
+    <color name="chat_panel_log_text">#FF4B4D54</color>
+    <color name="chat_step_badge_background">#FFE7ECFE</color>
+    <color name="chat_step_badge_text">#FF2A55C8</color>
+
+    <!-- 顶部工具栏 -->
+    <color name="chat_toolbar_background">#FFFBFBFC</color>
+    <color name="chat_toolbar_title">#FF1A1B1E</color>
+    <color name="chat_status_chip_background">#FFF1F2F5</color>
+
+    <!-- 系统提示（例如“任务开始时 App 会最小化”）小字 -->
+    <color name="chat_system_text">#FF9A9CA3</color>
 </resources>

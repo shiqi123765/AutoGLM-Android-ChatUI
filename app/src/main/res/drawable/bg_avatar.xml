@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    通用“圆点”背景（头像 / 步骤序号徽章共用）
+    · 实际颜色由使用处通过 android:backgroundTint 覆盖
+      - AI 头像   → @color/chat_avatar_ai_bg
+      - 用户头像  → @color/chat_avatar_user_bg
+      - 步骤序号  → @color/chat_step_badge_background
+    这样 1 个 drawable 就够用，资源文件更少、更好维护。
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FFFFFFFF" />
+</shape>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    侧边 Agent 面板底板：右侧两个角做成大圆角，像一张“抽屉卡片”
+    solid 引用 @color/chat_panel_background，深浅色自动切换
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/chat_panel_background" />
+    <corners
+        android:topRightRadius="20dp"
+        android:bottomRightRadius="20dp" />
+</shape>

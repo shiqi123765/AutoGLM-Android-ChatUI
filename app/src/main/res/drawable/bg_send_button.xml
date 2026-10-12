@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    发送按钮背景（圆形）
+    · state_enabled="false" → 灰色（没有输入内容 / 任务不可启动时）
+    · 默认状态 → 品牌蓝
+    这样按钮“可点/不可点”一眼就能看出来，不需要写额外代码。
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="@color/chat_send_button_disabled" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/chat_send_button" />
+        </shape>
+    </item>
+</selector>

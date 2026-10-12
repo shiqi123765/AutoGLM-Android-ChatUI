@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ============================================================================
+    values/strings_ui.xml —— 本次对话界面改版新增的文字资源
+    ============================================================================
+    为什么单独建一个文件，而不是改原来的 strings.xml？
+      · 原 strings.xml 有 20KB / 数百条字符串，直接改容易漏掉 </resources> 或改坏编码。
+      · 新建一个同名资源目录下的文件，Android 会自动合并，安全且便于你 review。
+    注意：名字不能和 strings.xml 里已有的重复，否则会编译报错（本文件已避开）。
+    ============================================================================
+-->
+<resources>
+    <!-- ======================= 顶部工具栏 ======================= -->
+    <string name="chat_toolbar_title">AutoGLM Agent</string>
+    <string name="chat_toolbar_subtitle">手机智能助手</string>
+    <string name="chat_open_panel">打开 Agent 面板</string>
+    <string name="chat_theme_toggle">切换深色 / 浅色模式</string>
+
+    <!-- ======================= 侧边 Agent 面板 ======================= -->
+    <string name="chat_panel_title">Agent 面板</string>
+    <string name="chat_panel_collapse">收起面板</string>
+    <string name="chat_panel_status_label">任务状态</string>
+    <string name="chat_panel_screen_label">屏幕识别 / 思考</string>
+    <string name="chat_panel_action_label">当前动作</string>
+    <string name="chat_panel_log_label">Agent 执行日志</string>
+    <string name="chat_panel_step_prefix">步骤</string>
+    <string name="chat_panel_empty">（暂无数据）</string>
+    <string name="chat_panel_log_empty">（暂无日志，启动任务后这里会实时滚动）</string>
+    <string name="chat_panel_dark_mode">深色模式</string>
+    <string name="chat_panel_refresh">刷新</string>
+
+    <!-- ======================= 任务状态文字 ======================= -->
+    <string name="chat_status_idle">空闲</string>
+    <string name="chat_status_running">执行中</string>
+    <string name="chat_status_paused">已暂停</string>
+    <string name="chat_status_completed">已完成</string>
+    <string name="chat_status_failed">失败</string>
+    <string name="chat_status_waiting_confirmation">等待确认</string>
+    <string name="chat_status_waiting_takeover">等待人工接管</string>
+    <string name="chat_step_format">第 %1$d 步</string>
+
+    <!-- ======================= 对话页面 ======================= -->
+    <string name="chat_input_hint">描述你想让手机做什么…</string>
+    <string name="chat_send">发送</string>
+    <string name="chat_clear">清空对话</string>
+    <string name="chat_agent_name">AutoGLM Agent</string>
+    <string name="chat_me_name">我</string>
+    <!-- 头像圆点里只放 1~2 个字符，所以单独给一组短名字 -->
+    <string name="chat_agent_name_short">AI</string>
+    <string name="chat_me_name_short">我</string>
+    <!-- 首次进入对话页时，作为第一条 AI 消息展示的 Markdown 欢迎语（顺便演示 Markdown 渲染） -->
+    <string name="chat_welcome_md">**你好，我是 AutoGLM Agent** 👋\n\n把你想让手机做的事，用一句话告诉我。\n我会自己**打开 App、点按、输入**，完成后回来告诉你结果。\n\n你可以这样说：\n\n- 打开微信，给文件传输助手发消息：测试\n- 打开淘宝，搜索无线耳机，按销量排序\n- 打开高德地图，导航到最近的地铁站\n\n> 提示：任务开始后 App 会自动最小化，进度可在左上角 **Agent 面板** 或悬浮窗查看。</string>
+    <string name="chat_thinking">正在思考…</string>
+    <string name="chat_action_prefix">执行动作：</string>
+    <!-- 气泡下方小标签里的后缀，例如 “第 2 步 · 思考” -->
+    <string name="chat_label_thinking">思考</string>
+    <string name="chat_label_action">动作</string>
+
+    <!-- ======================= 顶部状态条 ======================= -->
+    <string name="chat_conn_connected">已连接</string>
+    <string name="chat_conn_connecting">连接中</string>
+    <string name="chat_conn_no_permission">未授权</string>
+    <string name="chat_conn_not_running">未连接</string>
+    <string name="chat_empty_tip">试试这样说：\n• 打开微信，给文件传输助手发消息：测试\n• 打开淘宝，搜索无线耳机，按销量排序\n• 打开高德地图，导航到最近的地铁站</string>
+    <string name="chat_system_start_note">任务已开始。App 会自动最小化，进度请查看侧边 Agent 面板或悬浮窗。</string>
+    <string name="chat_system_done_note">任务结束。</string>
+
+    <!-- ======================= 提示 ======================= -->
+    <string name="chat_need_shizuku">请先在「设置」里连接 Shizuku 服务</string>
+    <string name="chat_need_overlay">请先授予「悬浮窗」权限</string>
+    <string name="chat_theme_switched_dark">已切换到深色模式</string>
+    <string name="chat_theme_switched_light">已切换到浅色模式</string>
+</resources>

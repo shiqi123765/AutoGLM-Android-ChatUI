@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ============================================================================
+    item_message.xml —— 对话列表中的“一条消息”
+    ============================================================================
+    【为什么一个文件里放两种气泡？】
+      RecyclerView 只用一种 item 布局最简单、最不容易出错。
+      一条消息要么是 AI（左侧），要么是用户（右侧），
+      ChatMessageAdapter 会根据消息类型把其中一组 setVisibility(VISIBLE)，另一组 GONE。
+
+    【左右布局怎么实现的】
+      · 外层是“垂直”LinearLayout，里面放两组（AI 组 / 用户组）；
+      · AI 组：  android:layout_gravity="start"（靠左）
+      · 用户组：android:layout_gravity="end"  （靠右）
+
+    【气泡宽度】
+      TextView 的 layout_width="wrap_content" + android:maxWidth="264dp"：
+      内容短就短气泡，内容长到 264dp 就自动换行，不会铺满整行。
+
+    【Markdown 渲染】
+      AI 气泡里的 aiText 是一个普通 TextView，
+      在 ChatMessageAdapter 里用 Markwon 把 Markdown 文本转成格式后再 setText，
+      所以代码块 / 列表 / 加粗都能正常显示。
+      （用户气泡不渲染 Markdown —— 用户发什么就显示什么，避免歧义。）
+    ============================================================================
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="6dp">
+
+    <!-- ======================================================================
+         一、AI 消息（靠左）—— 浅灰气泡 + Markdown
+         ====================================================================== -->
+    <LinearLayout
+        android:id="@+id/aiContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <!-- AI 头像：一个 30dp 的圆点，中间写 “AI” -->
+        <TextView
+            android:id="@+id/aiAvatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_avatar"
+            android:backgroundTint="@color/chat_avatar_ai_bg"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/chat_agent_name_short"
+            android:textColor="@color/chat_avatar_ai_text"
+            android:textSize="11sp" />
+
+        <!-- 气泡 + 下方小标签 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/aiText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="264dp"
+                android:background="@drawable/bg_chat_ai_bubble"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="10dp"
+                android:textAppearance="@style/TextAppearance.App.ChatBody"
+                android:textIsSelectable="true"
+                tools:text="**已找到 3 个结果**\n\n- 无线耳机 A\n- 无线耳机 B" />
+
+            <TextView
+                android:id="@+id/aiLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.App.ChatLabel"
+                tools:text="AutoGLM Agent · 第 2 步" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ======================================================================
+         二、用户消息（靠右）—— 深色气泡 + 白色文字
+         ====================================================================== -->
+    <LinearLayout
+        android:id="@+id/userContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="top|end"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!-- 气泡 + 下方小标签 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="264dp"
+                android:background="@drawable/bg_chat_user_bubble"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="10dp"
+                android:textAppearance="@style/TextAppearance.App.ChatUserBody"
+                android:textIsSelectable="true"
+                tools:text="打开淘宝，搜索无线耳机，按销量排序" />
+
+            <TextView
+                android:id="@+id/userLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:textAppearance="@style/TextAppearance.App.ChatLabel"
+                tools:text="我 · 14:32" />
+        </LinearLayout>
+
+        <!-- 用户头像 -->
+        <TextView
+            android:id="@+id/userAvatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_avatar"
+            android:backgroundTint="@color/chat_avatar_user_bg"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/chat_me_name_short"
+            android:textColor="@color/chat_avatar_user_text"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

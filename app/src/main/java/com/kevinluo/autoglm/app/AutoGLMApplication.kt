@@ -7,6 +7,7 @@ import com.kevinluo.autoglm.config.SystemPrompts
 import com.kevinluo.autoglm.settings.SettingsManager
 import com.kevinluo.autoglm.task.TaskExecutionManager
 import com.kevinluo.autoglm.ui.FloatingWindowStateManager
+import com.kevinluo.autoglm.ui.ThemeController
 import com.kevinluo.autoglm.util.KeepAliveManager
 import com.kevinluo.autoglm.util.LogFileManager
 import com.kevinluo.autoglm.util.Logger
@@ -32,6 +33,17 @@ class AutoGLMApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        // ------------------------------------------------------------------
+        // 【本次 UI 改版新增】应用用户保存的深色 / 浅色偏好
+        //
+        // 必须放在这里（而不是 BaseActivity.onCreate）：Activity 的真实主题是在
+        // attachBaseContext() 阶段确定的，而 attachBaseContext() 早于 onCreate()。
+        // 在 Activity.onCreate() 里才设置会让当前 Activity 先以“跟随系统”创建，
+        // 再被 setDefaultNightMode() 触发一次 recreate()，用户会看到闪屏。
+        // 放在 Application.onCreate() 时任何 Activity 都还没创建，一次到位。
+        // ------------------------------------------------------------------
+        ThemeController.applySavedMode(this)
 
         // Initialize log file manager for file-based logging
         LogFileManager.init(this)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    用户消息气泡背景（浅色/深色自动适配）
+    · corners：四个角的圆角半径，右下角给小一点(6dp)，形成“指向右侧”的气泡感
+    · solid：填充色，引用 @color/chat_user_bubble，深色模式下会自动变成深灰蓝
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/chat_user_bubble" />
+    <corners
+        android:topLeftRadius="18dp"
+        android:topRightRadius="18dp"
+        android:bottomLeftRadius="18dp"
+        android:bottomRightRadius="6dp" />
+</shape>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ============================================================================
+    values-night-v27/themes.xml —— 【深色模式 + Android 8.1 以上】的主题变体
+    ============================================================================
+    这是本次新增的文件。
+    Android 会这样挑选主题：
+      · 深色模式 + API ≥ 27 → 本文件
+      · 深色模式 + API < 27  → values-night/themes.xml
+      · 浅色模式 + API ≥ 27 → values-v27/themes.xml
+      · 浅色模式 + API < 27  → values/themes.xml
+    四个文件都写完整，保证任何组合下主题都正确（不会出现“半深半浅”）。
+    ============================================================================
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.AutoGLM" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- 主品牌色 -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/surface_variant</item>
+        <item name="colorOnPrimaryContainer">@color/primary</item>
+
+        <!-- 次级品牌色 -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorSecondaryContainer">@color/surface_variant</item>
+        <item name="colorOnSecondaryContainer">@color/secondary</item>
+
+        <!-- 第三色 -->
+        <item name="colorTertiary">@color/primary</item>
+        <item name="colorOnTertiary">@color/on_primary</item>
+        <item name="colorTertiaryContainer">@color/surface_variant</item>
+        <item name="colorOnTertiaryContainer">@color/primary</item>
+
+        <!-- 统一控件颜色 -->
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorControlNormal">@color/icon_secondary</item>
+        <item name="android:colorControlActivated">@color/primary</item>
+        <item name="android:colorControlNormal">@color/icon_secondary</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:colorAccent">@color/primary</item>
+        <item name="android:radioButtonStyle">@style/Widget.App.RadioButton</item>
+        <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+
+        <!-- 表面颜色 -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+
+        <!-- 背景色 -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="colorOnBackground">@color/on_background</item>
+
+        <!-- 沉浸式状态栏 / 导航栏（深色主题 → 图标用浅色） -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+
+        <!-- 描边与分割线 -->
+        <item name="colorOutline">@color/card_stroke</item>
+        <item name="colorOutlineVariant">@color/divider</item>
+
+        <!-- 文字外观 -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+
+        <!-- 工具栏 -->
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+    </style>
+</resources>

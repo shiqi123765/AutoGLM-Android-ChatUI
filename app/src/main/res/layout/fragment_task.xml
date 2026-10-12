@@ -1,132 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    ============================================================================
+    fragment_task.xml —— 对话页面（豆包 / Codex 风格）
+    ============================================================================
+    【结构】（从上到下）
+      1. 状态提示条：小圆点 + 任务状态文字 + “悬浮窗”快捷按钮
+      2. RecyclerView：消息列表（每一条消息由 item_message.xml 渲染）
+      3. 分隔线
+      4. 底部固定输入栏：模板按钮 + 语音按钮 + 多行输入框 + 圆形发送按钮
+
+    【重要：这些 id 必须保持和原来一样】
+      taskInput / btnVoiceInput / btnSelectTemplate / btnStartTask / btnFloatingWindow
+      这些 id 被 TaskFragment.kt 直接引用，保留它们意味着：
+        · 语音输入、模板选择、悬浮窗开关、启动任务的原有逻辑完全不用改；
+        · 只是把“长按才好看的大卡片布局”换成了“对话式布局”。
+
+    【Enter 键行为】
+      inputType 含 textMultiLine，所以按 Enter 是换行（符合“支持多行输入”的要求），
+      发送请点右侧圆形按钮。
+    ============================================================================
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".home.TaskFragment">
 
-    <ScrollView
+    <!-- ======================================================================
+         1. 顶部状态条
+         ====================================================================== -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:clipToPadding="false">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="6dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <View
+            android:id="@+id/viewChatStatusDot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_avatar"
+            android:backgroundTint="@color/status_idle" />
+
+        <TextView
+            android:id="@+id/tvChatStatus"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="32dp">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            tools:text="已连接 · 空闲" />
 
-            <!-- Task Input Card -->
-            <com.google.android.material.card.MaterialCardView
+        <!-- 悬浮窗开关（原 btnFloatingWindow，逻辑不变） -->
+        <ImageButton
+            android:id="@+id/btnFloatingWindow"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/quick_action_floating"
+            android:src="@drawable/ic_layers"
+            app:tint="@color/icon_secondary" />
+    </LinearLayout>
+
+    <!-- ======================================================================
+         2. 消息列表
+         clipToPadding=false：让列表内容可以滚动到 padding 区域内（滚动更自然）
+         ====================================================================== -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="4dp"
+        android:paddingBottom="10dp"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_message" />
+
+    <!-- ======================================================================
+         3. 输入栏上方的分隔线
+         ====================================================================== -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <!-- ======================================================================
+         4. 底部固定输入栏
+         ====================================================================== -->
+    <LinearLayout
+        android:id="@+id/chatInputBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/chat_input_bar_background"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp">
+
+        <!-- 4.1 任务模板（原 btnSelectTemplate） -->
+        <ImageButton
+            android:id="@+id/btnSelectTemplate"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/task_select_template"
+            android:src="@drawable/ic_list"
+            app:tint="@color/icon_secondary" />
+
+        <!-- 4.2 语音输入（原 btnVoiceInput） -->
+        <ImageButton
+            android:id="@+id/btnVoiceInput"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="2dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/voice_input_title"
+            android:src="@drawable/ic_mic"
+            app:tint="@color/icon_secondary" />
+
+        <!-- 4.3 多行输入框：圆角背景由 FrameLayout 提供，EditText 自身背景置空 -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chat_input"
+            android:minHeight="40dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp">
+
+            <EditText
+                android:id="@+id/taskInput"
+                style="@style/Widget.App.ChatInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp">
+                android:layout_gravity="center_vertical"
+                android:hint="@string/chat_input_hint"
+                android:importantForAutofill="no"
+                tools:ignore="Autofill,LabelFor" />
+        </FrameLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <!-- Header with label and action buttons -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/task_section_label"
-                            android:textColor="@color/text_primary"
-                            android:textSize="16sp"
-                            android:fontFamily="sans-serif-medium" />
-
-                        <!-- Floating Window Button -->
-                        <ImageButton
-                            android:id="@+id/btnFloatingWindow"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="@string/quick_action_floating"
-                            android:src="@drawable/ic_layers"
-                            app:tint="@color/icon_secondary" />
-
-                        <!-- Voice Input Button -->
-                        <ImageButton
-                            android:id="@+id/btnVoiceInput"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="@string/voice_input_title"
-                            android:src="@drawable/ic_mic"
-                            app:tint="@color/icon_secondary" />
-
-                        <!-- Template Selection Button -->
-                        <ImageButton
-                            android:id="@+id/btnSelectTemplate"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="@string/task_select_template"
-                            android:src="@drawable/ic_list"
-                            app:tint="@color/icon_secondary" />
-
-                    </LinearLayout>
-
-                    <!-- Task Input Field -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/taskInputLayout"
-                        style="@style/Widget.App.TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/task_input_hint"
-                        app:boxBackgroundColor="@color/surface_variant"
-                        app:hintEnabled="false">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/taskInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="top|start"
-                            android:hint="@string/task_input_hint"
-                            android:inputType="textMultiLine"
-                            android:minLines="8"
-                            android:maxLines="12"
-                            android:textSize="15sp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Start Task Button -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnStartTask"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/start_task"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="12dp"
-                        app:icon="@drawable/ic_play"
-                        app:iconGravity="textStart"
-                        app:iconPadding="8dp" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <!-- 4.4 圆形发送按钮（原 btnStartTask，点击即启动 Agent 任务） -->
+        <ImageButton
+            android:id="@+id/btnStartTask"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_send_button"
+            android:contentDescription="@string/chat_send"
+            android:enabled="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_send"
+            app:tint="@color/chat_send_icon" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,5 +1,28 @@
 # AutoGLM For Android
 
+> ## ⚠️ 本仓库是「对话式 UI 改版」衍生版（Derivative Fork）
+>
+> 本仓库基于 **[@Luokavin](https://github.com/Luokavin) 的 [AutoGLM-For-Android](https://github.com/Luokavin/AutoGLM-For-Android)**
+> （MIT License，Copyright © 2025 Luokavin），在**原版基础上重写了对话式 UI**（豆包 / Codex 风格），
+> 并修复了原版在 Android 14+ / 小米 HyperOS 上暴露出来的两个运行时问题。
+>
+> - **改了什么 / 怎么编译 / 怎么回滚** → [`UI改版说明.md`](UI改版说明.md)
+> - **完整导入 / 编译 / 安装 / 排错步骤（含本机实测环境体检）** → [`导入编译安装_Runbook.md`](导入编译安装_Runbook.md)
+> - **源码导读（各模块在哪、干什么）** → [`源码导读.md`](源码导读.md)
+>
+> **本仓库改动的范围**（其余一律未动）：
+>
+> | 类别 | 内容 |
+> |---|---|
+> | 新增 | 对话式首页：RecyclerView 左右气泡、Markdown 渲染（Markwon）、底部固定输入栏、侧边 Agent 执行面板、一键深浅色 |
+> | 新增 | 全新浅色/深色配色（`values/colors.xml` + `values-night/colors.xml`，93 个键一一对应），四套主题文件覆盖「深/浅 × API<27/≥27」 |
+> | 修复 | `SettingsFragment` 在 **Android 14+** 读 `Settings.Secure.ENABLED_INPUT_METHODS` 抛 `SecurityException` → 一进设置页就闪退 |
+> | 修复 | 深浅色开关（`MaterialSwitch`）状态被系统保存/恢复，导致「切换主题时 Activity 无限重建、黑白来回闪」 |
+> | 修复 | edge-to-edge 下软键盘遮住底部输入栏；深浅色偏好应用时机导致冷启动闪屏 |
+> | 未改动 | Shizuku 通道、屏幕捕获、模型调用、任务执行、悬浮窗、语音、历史记录、设置逻辑 |
+>
+> 原版 `LICENSE`（MIT）与版权声明完整保留；本仓库的修改部分同样以 MIT 发布。
+
 <div align="center">
 <img src="screenshots/logo.svg" width="120"/>
 

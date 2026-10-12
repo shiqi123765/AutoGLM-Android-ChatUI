@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ============================================================================
+    values-night/colors.xml —— 【深色主题】颜色资源
+    ============================================================================
+    这是本次新增的文件。Android 的规则是：
+      · 手机处于“深色模式”时 → 优先使用 values-night/ 目录下的同名资源；
+      · 浅色模式 → 使用 values/colors.xml。
+    只要本文件里的“颜色名字”和 values/colors.xml 完全一致，
+    对话气泡、输入框、面板的颜色就会自动适配，不需要写一行 Java/Kotlin 代码。
+    ============================================================================
+-->
+<resources>
+    <!-- ======================= 基础颜色 ======================= -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ======================= 品牌主色（深色下用更亮的蓝，保证对比度） ======================= -->
+    <color name="primary">#FF7C9DFA</color>
+    <color name="primary_dark">#FF5B82F0</color>
+    <color name="primary_light">#FF9DB8FC</color>
+    <color name="primary_variant">#FF5B82F0</color>
+    <!-- 深色模式主色偏亮，所以“主色上的文字”用深色，才看得清 -->
+    <color name="on_primary">#FF14161B</color>
+
+    <!-- ======================= 次级色 ======================= -->
+    <color name="secondary">@color/primary</color>
+    <color name="secondary_variant">@color/primary_dark</color>
+    <color name="on_secondary">@color/on_primary</color>
+
+    <!-- ======================= 页面 / 卡片 / 分割线 ======================= -->
+    <color name="background">#FF121316</color>
+    <color name="surface">#FF1A1B1F</color>
+    <color name="surface_variant">#FF25262B</color>
+    <color name="surface_elevated">#FF1F2024</color>
+    <color name="on_background">#FFECEDEF</color>
+    <color name="on_surface">#FFECEDEF</color>
+    <color name="on_surface_variant">#FFA0A2A9</color>
+
+    <color name="card_background">#FF1A1B1F</color>
+    <color name="card_stroke">#FF2C2D33</color>
+    <color name="divider">#FF26272C</color>
+
+    <!-- ======================= 悬浮窗 ======================= -->
+    <color name="floating_window_background">#F51A1B1F</color>
+    <color name="floating_window_border">#FF2C2D33</color>
+    <color name="floating_window_header">#FF25262B</color>
+    <color name="floating_window_text_primary">#FFECEDEF</color>
+    <color name="floating_window_text_secondary">#FFA0A2A9</color>
+
+    <!-- ======================= 任务状态色 ======================= -->
+    <color name="status_idle">#FF6E7076</color>
+    <color name="status_running">@color/primary</color>
+    <color name="status_paused">#FFFFC46B</color>
+    <color name="status_completed">#FF7FD79B</color>
+    <color name="status_failed">#FFFF7B7F</color>
+    <color name="status_waiting">#FFFFC46B</color>
+    <color name="status_success">#FF7FD79B</color>
+    <color name="status_error">#FFFF7B7F</color>
+
+    <!-- ======================= 弹窗 ======================= -->
+    <color name="dialog_background">#FF1F2024</color>
+    <color name="dialog_surface">#FF25262B</color>
+    <color name="dialog_button_confirm">@color/primary</color>
+    <color name="dialog_button_cancel">#FF8A8C93</color>
+
+    <!-- ======================= 日志区域 ======================= -->
+    <color name="log_background">#FF15161A</color>
+    <color name="log_background_dark">#FF0F1013</color>
+
+    <!-- ======================= 输入框 ======================= -->
+    <color name="input_background">#FF1F2024</color>
+    <color name="input_stroke">#FF2E3138</color>
+    <color name="input_stroke_focused">#FF7C9DFA</color>
+
+    <!-- ======================= 按钮 ======================= -->
+    <color name="button_primary">@color/primary</color>
+    <color name="button_primary_text">@color/on_primary</color>
+    <color name="button_secondary">#FF25262B</color>
+    <color name="button_secondary_text">@color/primary</color>
+    <color name="button_outlined_stroke">@color/primary</color>
+
+    <!-- ======================= 文字 ======================= -->
+    <color name="text_primary">#FFECEDEF</color>
+    <color name="text_secondary">#FFA0A2A9</color>
+    <color name="text_hint">#FF6E7076</color>
+
+    <!-- ======================= 图标 ======================= -->
+    <color name="icon_primary">@color/primary</color>
+    <color name="icon_secondary">#FFA0A2A9</color>
+    <color name="icon_tertiary">#FF7C7E85</color>
+
+    <!-- ======================= 错误 ======================= -->
+    <color name="error">#FFFF7B7F</color>
+
+    <!-- ======================= 水波纹 / 遮罩 ======================= -->
+    <color name="ripple_color">#1A7C9DFA</color>
+    <color name="overlay_light">#0A7C9DFA</color>
+
+    <!-- ======================= 输入法键盘 ======================= -->
+    <color name="keyboard_background">#FF1A1B1F</color>
+    <color name="keyboard_text">#FFECEDEF</color>
+    <color name="keyboard_status_text">#FF7FD79B</color>
+    <color name="keyboard_hint_text">#FF8A8C93</color>
+
+    <!-- ======================= 开关 ======================= -->
+    <color name="switch_track_unchecked">#FF4A4C53</color>
+    <color name="switch_track_checked">@color/primary</color>
+    <color name="switch_thumb_unchecked">#FFB0B2B8</color>
+    <color name="switch_thumb_checked">#FFFFFFFF</color>
+
+    <!-- ============================================================================
+         对话界面专用颜色（深色版）
+         ============================================================================ -->
+    <!-- 深色模式下的“用户气泡”：比页面底色亮一点点的深灰蓝，白字依旧清晰 -->
+    <color name="chat_user_bubble">#FF2A2D34</color>
+    <color name="chat_user_text">#FFFFFFFF</color>
+
+    <!-- 深色模式下的“AI 气泡”：比页面底色 #121316 略亮，形成层级 -->
+    <color name="chat_ai_bubble">#FF1E2025</color>
+    <color name="chat_ai_bubble_stroke">#FF2C2D33</color>
+    <color name="chat_ai_text">#FFE6E7EA</color>
+
+    <!-- Markdown 代码块 -->
+    <color name="chat_code_background">#FF14161A</color>
+    <color name="chat_code_text">#FFE6E7EA</color>
+    <color name="chat_link">#FF9DB8FC</color>
+
+    <!-- 头像圆点 -->
+    <color name="chat_avatar_ai_bg">#FF232A44</color>
+    <color name="chat_avatar_ai_text">#FF9DB8FC</color>
+    <color name="chat_avatar_user_bg">#FF3A3E47</color>
+    <color name="chat_avatar_user_text">#FFFFFFFF</color>
+
+    <!-- 底部输入栏 -->
+    <color name="chat_input_background">#FF1E2025</color>
+    <color name="chat_input_stroke">#FF2E3138</color>
+    <color name="chat_send_button">#FF7C9DFA</color>
+    <color name="chat_send_button_disabled">#FF3A3C42</color>
+    <color name="chat_send_icon">#FF14161B</color>
+    <color name="chat_input_bar_background">#FF16171B</color>
+
+    <!-- 侧边 Agent 面板 -->
+    <color name="chat_panel_background">#FF16171B</color>
+    <color name="chat_panel_header">#FF1E2025</color>
+    <color name="chat_panel_card">#FF1E2025</color>
+    <color name="chat_panel_label">#FF8A8C93</color>
+    <color name="chat_panel_log_text">#FFB4B6BD</color>
+    <color name="chat_step_badge_background">#FF232A44</color>
+    <color name="chat_step_badge_text">#FF9DB8FC</color>
+
+    <!-- 顶部工具栏 -->
+    <color name="chat_toolbar_background">#FF121316</color>
+    <color name="chat_toolbar_title">#FFECEDEF</color>
+    <color name="chat_status_chip_background">#FF25262B</color>
+
+    <!-- 系统提示小字 -->
+    <color name="chat_system_text">#FF6E7076</color>
+</resources>
