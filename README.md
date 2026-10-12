@@ -38,6 +38,36 @@
 
 ## 📸 应用截图
 
+### 对话式 UI 改版后（本仓库）
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="screenshots/chatui-chat-light.png" width="100%"/><br/>
+      <sub><b>对话页 · 浅色</b>：AI / 用户左右气泡 · Markwon Markdown 渲染 · 底部固定输入栏</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="screenshots/chatui-chat-dark.png" width="100%"/><br/>
+      <sub><b>对话页 · 深色</b>：顶部一键切换，93 个颜色键浅深一一对应</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="screenshots/chatui-agent-panel.png" width="100%"/><br/>
+      <sub><b>侧边 Agent 面板</b>：任务状态 / 屏幕识别 / 当前动作 / 实时滚动日志（图为空闲状态）</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="screenshots/chatui-settings-light.png" width="100%"/><br/>
+      <sub><b>设置页 · 浅色</b>：权限状态 / 模型配置 / 执行配置（同时修好了 Android 14+ 打开设置即崩）</sub>
+    </td>
+  </tr>
+</table>
+
+> 以上均为真机截图（小米 HyperOS / Android 16）。
+> 改动清单、设计取舍、以及“为什么这么改”的完整说明见 [`UI改版说明.md`](UI改版说明.md)。
+
+### 原版界面（上游，供对比）
+
 <table>
   <tr>
     <td><img src="screenshots/screenshot_1.jpg" width="100%"/></td>
