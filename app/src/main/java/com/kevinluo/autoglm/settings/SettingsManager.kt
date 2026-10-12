@@ -173,22 +173,50 @@ class SettingsManager private constructor(private val context: Context) {
      */
     fun getModelConfig(): ModelConfig {
         Logger.d(TAG, "Loading model configuration")
-        return ModelConfig(
-            baseUrl =
-            prefs.getString(KEY_BASE_URL, DEFAULT_MODEL_CONFIG.baseUrl)
-                ?: DEFAULT_MODEL_CONFIG.baseUrl,
-            apiKey =
-            securePrefs
-                .getString(KEY_API_KEY, DEFAULT_MODEL_CONFIG.apiKey)
-                ?.ifEmpty { "EMPTY" } ?: "EMPTY",
-            modelName =
-            prefs.getString(KEY_MODEL_NAME, DEFAULT_MODEL_CONFIG.modelName)
-                ?: DEFAULT_MODEL_CONFIG.modelName,
-            maxTokens = prefs.getInt(KEY_MAX_TOKENS, DEFAULT_MODEL_CONFIG.maxTokens),
-            temperature = prefs.getFloat(KEY_TEMPERATURE, DEFAULT_MODEL_CONFIG.temperature),
-            topP = prefs.getFloat(KEY_TOP_P, DEFAULT_MODEL_CONFIG.topP),
-            frequencyPenalty = prefs.getFloat(KEY_FREQUENCY_PENALTY, DEFAULT_MODEL_CONFIG.frequencyPenalty),
-            timeoutSeconds = prefs.getLong(KEY_TIMEOUT_SECONDS, DEFAULT_MODEL_CONFIG.timeoutSeconds),
+        val stored =
+            ModelConfig(
+                baseUrl =
+                prefs.getString(KEY_BASE_URL, DEFAULT_MODEL_CONFIG.baseUrl)
+                    ?: DEFAULT_MODEL_CONFIG.baseUrl,
+                apiKey =
+                securePrefs
+                    .getString(KEY_API_KEY, DEFAULT_MODEL_CONFIG.apiKey)
+                    ?.ifEmpty { "EMPTY" } ?: "EMPTY",
+                modelName =
+                prefs.getString(KEY_MODEL_NAME, DEFAULT_MODEL_CONFIG.modelName)
+                    ?: DEFAULT_MODEL_CONFIG.modelName,
+                maxTokens = prefs.getInt(KEY_MAX_TOKENS, DEFAULT_MODEL_CONFIG.maxTokens),
+                temperature = prefs.getFloat(KEY_TEMPERATURE, DEFAULT_MODEL_CONFIG.temperature),
+                topP = prefs.getFloat(KEY_TOP_P, DEFAULT_MODEL_CONFIG.topP),
+                frequencyPenalty = prefs.getFloat(KEY_FREQUENCY_PENALTY, DEFAULT_MODEL_CONFIG.frequencyPenalty),
+                timeoutSeconds = prefs.getLong(KEY_TIMEOUT_SECONDS, DEFAULT_MODEL_CONFIG.timeoutSeconds),
+            )
+
+        // ==============================================================================
+        // 【本仓库修复】全局配置里没有可用 API Key 时，回退到「当前选中的配置(profile)」
+        //
+        // 原实现的 bug（会导致模型服务端一律返回 401 Invalid API key）：
+        //   · 设置页的「保存」按钮        -> saveModelConfig() 把 key 写进全局键 model_api_key
+        //   · 设置页的「保存为配置(profile)」-> saveProfile()    把 key 写进 profile_apikey_<id>
+        //   · 但真正发请求的这里只读全局键；选中 profile 时也只是下拉框显示个名字
+        //     （SettingsFragment.loadSavedProfiles 只 setText，从不 loadProfileToFields）
+        //   => 用户辛辛苦苦填进 profile 的 key 永远用不上，请求头变成
+        //      `Authorization: Bearer EMPTY`，于是"一用就 401"。
+        // 这里做最小修复：全局 key 缺失/为空/为 EMPTY 时，用当前 profile 的 key 兜底。
+        // 有全局 key 时行为完全不变。
+        // ==============================================================================
+        val globalKeyMissing = stored.apiKey.isBlank() || stored.apiKey == "EMPTY"
+        if (!globalKeyMissing) return stored
+
+        val profileId = getCurrentProfileId()
+        val profile = profileId?.let { getProfileById(it) }
+        if (profile == null) return stored
+
+        Logger.i(TAG, "全局 apiKey 为空，回退使用当前配置 profile=$profileId 的 key")
+        return stored.copy(
+            baseUrl = stored.baseUrl.ifBlank { profile.config.baseUrl },
+            apiKey = profile.config.apiKey,
+            modelName = stored.modelName.ifBlank { profile.config.modelName },
         )
     }
 
